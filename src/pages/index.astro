@@ -16,10 +16,13 @@ const posts = (await getCollection('blog'))
 	>
 		<div>
 			<p class="block text-3xl opacity-70 mt-9 mb-4">Welcome to</p>
-			<h1 class="text-8xl font-bold leading-none">Saral Theme</h1>
+			<h1 class="text-8xl font-bold leading-none">mirzu.com</h1>
 		</div>
 		<p class="text-2xl max-w-2xl font-light leading-normal">
-			A simple theme for personal blog sites, created for Astro framework.
+			I'm Michal Minecki, and this is my website.
+		</p>
+		<p class="text-2xl max-w-2xl font-light leading-normal">
+			I help teams do their best work, and I make things.
 		</p>
 		<div class="flex flex-wrap gap-8">
 			{
@@ -53,8 +56,9 @@ const posts = (await getCollection('blog'))
 		<div class="space-y-6">
 			<h2 class="section-title">About Me</h2>
 			<p class="text-lg max-w-xl pb-4">
-				A brief introduction about yourself. You can include your profession,
-				hobbies, interests, or anything you'd like visitors to know about you.
+				I've spent my whole life in the intersection between engineering and
+				art. For the past 20 years I've been building websites for forward
+				thinking organizations.
 			</p>
 			<a class="btn-secondary" href={`${SITE_BASE}/about`}
 				>Go to About
@@ -69,15 +73,15 @@ const posts = (await getCollection('blog'))
 			<div class="flex flex-wrap mt-auto space-x-4">
 				<a
 					class="btn-primary"
-					href="mailto:example@email.com"
+					href="mailto:contact@mirzu.com"
 					download
 					target="_blank"
 					>Get in touch
 					<Icon height={20} name="mdi:email" />
 				</a>
-				<a class="btn-secondary" href="https://example.com" target="_blank"
-					>Download Resume
-					<Icon height={20} name="mdi:arrow-collapse-down" />
+				<a class="btn-primary" href={`${SITE_BASE}/resume`} target="_blank"
+					>view Resume
+					<Icon height={20} name="mdi:file-document-outline" />
 				</a>
 			</div>
 		</div>
