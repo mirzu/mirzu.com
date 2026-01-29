@@ -39,6 +39,10 @@ export const WebsiteLinks = [
 		url: 'blog',
 	},
 	{
+		name: 'Art',
+		url: 'art',
+	},
+	{
 		name: 'About',
 		url: 'about',
 	},

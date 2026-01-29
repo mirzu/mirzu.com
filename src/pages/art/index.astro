@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content'
+import ArtCard from '../../components/ArtCard.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const posts = (await getCollection('art')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)
+---
+
+<BaseLayout>
+	<main class="app-container pt-36">
+		<h1 class="text-6xl pb-8 font-bold">Art</h1>
+		<p class="md:w-2/3 text-lg leading-[2rem]">
+			Welcome to my art! Here you'll find a collection of my thoughts and
+			experiences. I hope you enjoy reading them as much as I enjoy writing
+			them.
+		</p>
+	</main>
+	<section class="app-container py-12">
+		<ul class="posts-grid-container">
+			{
+				posts.map((post) => (
+					<li>
+						<ArtCard post={post} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</BaseLayout>
