@@ -1,0 +1,205 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import Navbar from '../components/Navbar.astro'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+
+interface Props {
+	title?: string
+	description?: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title || SITE_TITLE}
+			description={description || SITE_DESCRIPTION}
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style is:global>
+			.md-page {
+				font-family: 'Fira Code', monospace !important;
+				font-size: 15px !important;
+				line-height: 1.6 !important;
+			}
+
+			.md-page * {
+				font-family: 'Fira Code', monospace !important;
+				font-size: 15px !important;
+			}
+
+			.md-page h1,
+			.md-page h2,
+			.md-page h3,
+			.md-page h4,
+			.md-page h5,
+			.md-page h6,
+			.md-page p,
+			.md-page a,
+			.md-page span,
+			.md-page li,
+			.md-page div {
+				font-size: 15px !important;
+				font-weight: 400 !important;
+			}
+
+			.md-page a {
+				text-decoration: underline;
+			}
+
+			.md-page a:hover {
+				opacity: 0.8;
+			}
+
+			/* Syntax highlighting colors - dark theme inspired */
+			.md-syntax {
+				--md-comment: #6a9955;
+				--md-keyword: #569cd6;
+				--md-string: #ce9178;
+				--md-function: #dcdcaa;
+				--md-variable: #9cdcfe;
+				--md-number: #b5cea8;
+				--md-punctuation: #d4d4d4;
+				--md-heading: #4ec9b0;
+				--md-link: #4fc1ff;
+				--md-bold: #569cd6;
+			}
+
+			.dark .md-syntax {
+				--md-comment: #6a9955;
+				--md-keyword: #569cd6;
+				--md-string: #ce9178;
+				--md-function: #dcdcaa;
+				--md-variable: #9cdcfe;
+				--md-number: #b5cea8;
+				--md-punctuation: #808080;
+				--md-heading: #4ec9b0;
+				--md-link: #4fc1ff;
+				--md-bold: #569cd6;
+			}
+
+			.md-comment {
+				color: var(--md-comment);
+			}
+
+			.md-keyword {
+				color: var(--md-keyword);
+			}
+
+			.md-string {
+				color: var(--md-string);
+			}
+
+			.md-function {
+				color: var(--md-function);
+			}
+
+			.md-variable {
+				color: var(--md-variable);
+			}
+
+			.md-number {
+				color: var(--md-number);
+			}
+
+			.md-punctuation {
+				color: var(--md-punctuation);
+			}
+
+			.md-heading {
+				color: var(--md-heading);
+			}
+
+			.md-link {
+				color: var(--md-link);
+			}
+
+			.md-bold {
+				color: var(--md-bold);
+			}
+
+			.md-content {
+				width: 100%;
+				padding-left: 2rem;
+				padding-right: 2rem;
+			}
+
+			.md-line {
+				display: block;
+				min-height: 1.6em;
+			}
+
+			.md-line-number {
+				display: inline-block;
+				width: 3ch;
+				margin-right: 2ch;
+				text-align: right;
+				color: #858585;
+				user-select: none;
+			}
+
+			/* Page transition */
+			@keyframes mdPageFadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(20px) scale(0.98);
+					filter: blur(4px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0) scale(1);
+					filter: blur(0);
+				}
+			}
+
+			.md-page {
+				animation: mdPageFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+				transition:
+					opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+					transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+					filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.md-page.transitioning {
+				opacity: 0;
+				transform: translateY(-20px) scale(0.98);
+				filter: blur(4px);
+			}
+		</style>
+	</head>
+	<body
+		class="text-foreground bg-background dark:text-foreground-dark dark:bg-background-dark transition-colors"
+	>
+		<Navbar title={SITE_TITLE} />
+		<div class="md-page md-syntax" id="md-page-content">
+			<slot />
+		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const humanLink = document.getElementById('human-link')
+				const pageContent = document.getElementById('md-page-content')
+
+				if (humanLink && pageContent) {
+					humanLink.addEventListener('click', (e) => {
+						e.preventDefault()
+						const href = humanLink.getAttribute('href')
+
+						pageContent.classList.add('transitioning')
+
+						setTimeout(() => {
+							if (href) window.location.href = href
+						}, 600)
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

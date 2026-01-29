@@ -1,0 +1,252 @@
+---
+import MarkdownLayout from '../layouts/MarkdownLayout.astro'
+import { SITE_BASE, SocialLinks } from '../consts'
+import { getCollection } from 'astro:content'
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 4)
+
+const formatDate = (date: Date) => {
+	return date.toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	})
+}
+
+let lineNum = 1
+---
+
+<MarkdownLayout>
+	<main class="md-content pt-20 pb-16">
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">## welcome to</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment"># mirzu.com</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>This website is robots first. <a
+					href={`${SITE_BASE}/`}
+					class="md-link"
+					id="human-link">Click here</a
+				> if you are a human.</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>I'm Michal Minecki, and this is my website.</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>I help Agencies deliver their best work, and I build content
+				management systems.</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>In my spare time I make things and foster dogs.</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">---</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">## Links</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		{
+			SocialLinks.map((link) => (
+				<div class="md-line">
+					<span class="md-line-number">{lineNum++}</span>
+					<span class="md-punctuation">- </span>
+					<a href={link.url} target="_blank" class="md-link">
+						{link.name}
+					</a>
+				</div>
+			))
+		}
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">---</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">## Recent Posts</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		{
+			posts.map((post) => (
+				<>
+					<div class="md-line">
+						<span class="md-line-number">{lineNum++}</span>
+						<span class="md-punctuation">- </span>
+						<a href={`${SITE_BASE}/blog/${post.slug}`} class="md-link">
+							{post.data.title}
+						</a>
+					</div>
+					<div class="md-line">
+						<span class="md-line-number">{lineNum++}</span>
+						<span class="md-punctuation">&nbsp;&nbsp;</span>
+						<span class="md-number">{formatDate(post.data.pubDate)}</span>
+					</div>
+				</>
+			))
+		}
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">- </span>
+			<a href={`${SITE_BASE}/blog`} class="md-link">Read All Posts →</a>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">---</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">## About Me</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>I've spent my whole life in the intersection between</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>engineering and art. For the past 20 years I've been</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string"
+				>building websites for forward thinking organizations.</span
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string">In my spare time I make things.</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">- </span>
+			<a href={`${SITE_BASE}/about`} class="md-link">Go to About →</a>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">---</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">## Get in touch</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-string">Use the links below for my resume & email.</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">- </span>
+			<a href="mailto:contact@mirzu.com" class="md-link">Get in touch →</a>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-punctuation">- </span>
+			<a href={`${SITE_BASE}/resume`} target="_blank" class="md-link"
+				>View Resume →</a
+			>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+		</div>
+		<div class="md-line">
+			<span class="md-line-number">{lineNum++}</span>
+			<span class="md-comment">// EOF</span>
+		</div>
+	</main>
+</MarkdownLayout>
