@@ -1,18 +1,14 @@
 ---
 title: 'The Three Pillars of Team Building: Excellence, Empowerment, and Empathy'
-description: Management books will give you dozens of frameworks, but after years of leading teams, I've found that building effective teams comes down to just three things: Excellence, Empowerment, and Empathy. Simple doesn't mean easy—here's how I think about each one.
-  
+description: 'There are lots of things that go into building great teams, but at the core are three pillars: Excellence, Empowerment and Empathy.'
+
 pubDate: 'Sep 05 2025'
 coverImageCredit: 'Evgeni Tcherkasski, Unsplash'
 ---
 
-I've always been someone who goes deep. When I learned to code, I didn't stop at syntax—I dove into the machine, understanding how things worked under the hood. When I stepped into leadership, I took the same approach, constantly searching for ways to be more effective and drive better outcomes.
-
 As an engineering manager, I prided myself on something specific: not being the bridge between business and engineering, but building my team up to do that work themselves. My goal was to make myself unnecessary as a translator. When I began leading cross-functional teams, I carried that philosophy across departments—building teams that understood each other, did their best individual work, and collaborated seamlessly.
 
-After years of management books, frameworks like EOS and _The Five Dysfunctions of a Team_, and plenty of trial and error, I've distilled what I believe is core to building teams that truly work well. The recipe is simple—though simple doesn't mean easy.
-
-For the sake of alliteration, I've organized my philosophy around three E's: Excellence, Empowerment, and Empathy.
+I've tried to distill what I've learned down to most basic principles and best I can see there are 3 pillars, that are at the foundation of building effective teams. For the sake of alliteration, I've organized my philosophy around three E's: Excellence, Empowerment, and Empathy.
 
 ## Excellence: Building a Culture of Quality
 
