@@ -10,6 +10,9 @@ export const SITE_DESCRIPTION =
 // Leave it as an empty string if you are deploying to a root domain (e.g. example.com)
 export const SITE_BASE = ''
 
+// Google Tag Manager
+export const GTM_CONTAINER_ID = 'GTM-5WG3SGDR'
+
 export const SocialLinks = [
 	{
 		name: 'GitHub',

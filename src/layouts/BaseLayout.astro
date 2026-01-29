@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro'
 import Navbar from '../components/Navbar.astro'
 import Footer from '../components/Footer.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
+import { SITE_TITLE, SITE_DESCRIPTION, GTM_CONTAINER_ID } from '../consts'
 
 interface Props {
 	title?: string
@@ -54,6 +54,10 @@ import '@fontsource-variable/jetbrains-mono'
 	<body
 		class="text-foreground bg-background font-light dark:text-foreground-dark dark:bg-background-dark transition-colors"
 	>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<Navbar title={SITE_TITLE} />
 		<div class="page-content" id="page-content">
 			<slot />

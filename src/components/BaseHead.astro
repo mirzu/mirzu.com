@@ -1,5 +1,5 @@
 ---
-import { SITE_BASE } from '@/consts'
+import { SITE_BASE, GTM_CONTAINER_ID } from '@/consts'
 import '../styles/global.css'
 
 interface Props {
@@ -12,6 +12,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 const { title, description, image = `${SITE_BASE}/saral-og.jpg` } = Astro.props
 ---
+
+<!-- Google Tag Manager -->
+<script is:inline define:vars={{ GTM_CONTAINER_ID }}>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer',GTM_CONTAINER_ID);
+</script>
+<!-- End Google Tag Manager -->
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
