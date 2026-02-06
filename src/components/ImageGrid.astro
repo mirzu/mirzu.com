@@ -103,7 +103,7 @@ const gridClass = {
 
 	.lightbox-slide {
 		display: none;
-		position: absolute;
+		position: sticky;
 		inset: 0;
 		padding: 3rem;
 		text-align: center;
@@ -162,7 +162,6 @@ const gridClass = {
 				const activeSlide = slides[index] as HTMLElement
 				if (caption) caption.textContent = activeSlide.dataset.caption || ''
 				if (counter) counter.textContent = `${index + 1} / ${totalImages}`
-
 			}
 
 			function openLightbox(index: number) {
@@ -195,7 +194,6 @@ const gridClass = {
 					closeLightbox()
 				}
 			})
-
 		})
 	}
 

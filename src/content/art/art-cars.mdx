@@ -10,10 +10,13 @@ import ImageGrid from '../../components/ImageGrid.astro'
 import sakanaDay from '../../assets/inlineimages/Sakana-day.jpg'
 import sakanaNight from '../../assets/inlineimages/Sakana-night.jpg'
 import sakanaBook from '../../assets/inlineimages/American-Puppet-Modernism.webp'
+import jabbaPoofersDay from '../../assets/inlineimages/Jabba-poofers-day.jpg'
+import jabbaPoofersNight from '../../assets/inlineimages/Jabba-poofers-night.jpg'
+import jabbaStormtroopers from '../../assets/inlineimages/Jabba-Stormtroopers.jpg'
 
 I built two art cars. The first was called Sakana, or just the fish car and the most successful from an artistic perspective, and the second was called Jabba's barge and was the most successful from a fun perspective.
 
-{/* Accepts 2, 3, or 4 columns */}
+Sakana was built from an old Geo. Linen sails and bamboo that was grown in my father's backyard. We brought it out 2 years. A picture of it was featured on the cover of an art text book on american puppetering.
 
 <ImageGrid
 	columns={3}
@@ -24,6 +27,13 @@ I built two art cars. The first was called Sakana, or just the fish car and the 
 	]}
 />
 
-![Sakana during the day](../../assets/inlineimages/Sakana-day.jpg)
-![Sakana at night](../../assets/inlineimages/Sakana-night.jpg)
-![Made the cover of an Art Text Book](../../assets/inlineimages/American-Puppet-Modernism.webp)
+Jabba was a much more abmitious project. We modified it to be driven from the platform on top, and eventually added fire. It also had it's own sound system so we could host parties.
+
+<ImageGrid
+	columns={3}
+	images={[
+		{ src: jabbaPoofersDay, alt: 'Jabba during the day' },
+		{ src: jabbaPoofersNight, alt: 'Jabba blowing up the night' },
+		{ src: jabbaStormtroopers, alt: 'Jabba visited by stom troopers' },
+	]}
+/>
