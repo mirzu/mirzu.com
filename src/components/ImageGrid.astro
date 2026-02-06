@@ -52,48 +52,6 @@ const gridClass = {
 		aria-modal="true"
 		aria-label="Image lightbox"
 	>
-		<!-- Close button -->
-		<button
-			type="button"
-			class="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition-colors cursor-pointer"
-			data-lightbox-close
-			aria-label="Close lightbox"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-8 w-8"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M6 18L18 6M6 6l12 12"></path>
-			</svg>
-		</button>
-
-		<!-- Previous button -->
-		<button
-			type="button"
-			class="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors cursor-pointer p-2"
-			data-lightbox-prev
-			aria-label="Previous image"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-10 w-10"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"
-				></path>
-			</svg>
-		</button>
-
 		<!-- Full-size images (one per image, toggled by JS) -->
 		{
 			images.map((image, index) => (
@@ -118,26 +76,6 @@ const gridClass = {
 			data-lightbox-caption
 		>
 		</p>
-
-		<!-- Next button -->
-		<button
-			type="button"
-			class="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors cursor-pointer p-2"
-			data-lightbox-next
-			aria-label="Next image"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-10 w-10"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
-				></path>
-			</svg>
-		</button>
 
 		<!-- Image counter -->
 		<div
@@ -207,14 +145,6 @@ const gridClass = {
 			const counter = container.querySelector(
 				'[data-lightbox-counter]'
 			) as HTMLElement | null
-			const closeBtn = container.querySelector('[data-lightbox-close]')
-			const prevBtn = container.querySelector(
-				'[data-lightbox-prev]'
-			) as HTMLElement | null
-			const nextBtn = container.querySelector(
-				'[data-lightbox-next]'
-			) as HTMLElement | null
-
 			if (!overlay || !slides.length || !triggers.length) return
 
 			let currentIndex = 0
@@ -233,9 +163,6 @@ const gridClass = {
 				if (caption) caption.textContent = activeSlide.dataset.caption || ''
 				if (counter) counter.textContent = `${index + 1} / ${totalImages}`
 
-				if (prevBtn) prevBtn.style.display = index === 0 ? 'none' : ''
-				if (nextBtn)
-					nextBtn.style.display = index === totalImages - 1 ? 'none' : ''
 			}
 
 			function openLightbox(index: number) {
@@ -243,7 +170,6 @@ const gridClass = {
 				showImage(index)
 				overlay!.classList.add('is-open')
 				document.body.style.overflow = 'hidden'
-				;(closeBtn as HTMLElement)?.focus()
 			}
 
 			function closeLightbox() {
@@ -262,8 +188,6 @@ const gridClass = {
 				})
 			})
 
-			closeBtn?.addEventListener('click', closeLightbox)
-
 			overlay.addEventListener('click', (e) => {
 				const target = e.target as HTMLElement
 				// Close if clicking the overlay backdrop or a slide container (not the image itself)
@@ -272,51 +196,6 @@ const gridClass = {
 				}
 			})
 
-			prevBtn?.addEventListener('click', (e) => {
-				e.stopPropagation()
-				if (currentIndex > 0) showImage(currentIndex - 1)
-			})
-
-			nextBtn?.addEventListener('click', (e) => {
-				e.stopPropagation()
-				if (currentIndex < totalImages - 1) showImage(currentIndex + 1)
-			})
-
-			function trapFocus(e: KeyboardEvent) {
-				const focusableElements = overlay!.querySelectorAll(
-					'button:not([style*="display: none"])'
-				)
-				const first = focusableElements[0] as HTMLElement
-				const last = focusableElements[
-					focusableElements.length - 1
-				] as HTMLElement
-
-				if (e.shiftKey && document.activeElement === first) {
-					e.preventDefault()
-					last.focus()
-				} else if (!e.shiftKey && document.activeElement === last) {
-					e.preventDefault()
-					first.focus()
-				}
-			}
-
-			overlay.addEventListener('keydown', (e: Event) => {
-				const ke = e as KeyboardEvent
-				switch (ke.key) {
-					case 'Escape':
-						closeLightbox()
-						break
-					case 'ArrowLeft':
-						if (currentIndex > 0) showImage(currentIndex - 1)
-						break
-					case 'ArrowRight':
-						if (currentIndex < totalImages - 1) showImage(currentIndex + 1)
-						break
-					case 'Tab':
-						trapFocus(ke)
-						break
-				}
-			})
 		})
 	}
 
