@@ -1,0 +1,34 @@
+---
+title: 'Printmaking'
+description: 'Went to school for Fine Art Printmaking'
+pubDate: 'Aug 21 2025'
+coverImageCredit: 'Mike Minecki'
+---
+
+import ImageGrid from '../../components/ImageGrid.astro'
+import bigPotato from '../../assets/inlineimages/prints/bigPotato.jpg'
+import smallPotato from '../../assets/inlineimages/prints/smallPotato.jpg'
+import plugHead from '../../assets/inlineimages/prints/plugHead.jpg'
+import freeway from '../../assets/inlineimages/prints/freeway.jpg'
+import plugHeadsCrowd from '../../assets/inlineimages/prints/plugHeadsCrowd.jpg'
+import milkCarton from '../../assets/inlineimages/prints/milkCarton.jpg'
+import vengence from '../../assets/inlineimages/prints/vengence.jpg'
+
+I went to school for fine art printmaking and it has continued to this day a staple of work I create.
+Exploring themes from my personal history including technology, potatoes and comodification. I've always been drawn to the nexus of art and technology and printmaking is how I find this balance in works on paper.
+
+<ImageGrid
+	columns={3}
+	images={[
+		{ src: plugHead, alt: 'Plug Head silkscreen print' },
+		{ src: bigPotato, alt: 'A big potato lithograph' },
+		{ src: smallPotato, alt: 'A small potato, aka me. lithograph' },
+		{
+			src: milkCarton,
+			alt: 'A milk carton with a lost boy, aka me. silkscreen',
+		},
+		{ src: plugHeadsCrowd, alt: 'Breaking free from the feed. silkscreen' },
+		{ src: freeway, alt: 'LA, city of crossed paths. linocut reduction print' },
+		{ src: vengence, alt: 'Anti war poster from Desert Storm. Silkscreen' },
+	]}
+/>
