@@ -1,0 +1,327 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface ImageGridProps {
+	images: {
+		src: ImageMetadata
+		alt: string
+		caption?: string
+	}[]
+	columns?: 2 | 3 | 4
+}
+
+const { images, columns = 3 } = Astro.props as ImageGridProps
+
+const gridClass = {
+	2: 'grid-cols-2 sm:grid-cols-2',
+	3: 'grid-cols-2 sm:grid-cols-3',
+	4: 'grid-cols-2 sm:grid-cols-4',
+}[columns]
+---
+
+<section class="image-grid-container">
+	<!-- Thumbnail grid -->
+	<div class={`grid ${gridClass} gap-4 my-8`}>
+		{
+			images.map((image, index) => (
+				<button
+					type="button"
+					class="relative aspect-square cursor-zoom-in group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-primary-dark rounded-lg overflow-hidden"
+					data-lightbox-trigger
+					data-index={index}
+					aria-label={`View full size: ${image.alt}`}
+				>
+					<Image
+						alt={image.alt}
+						src={image.src}
+						width={500}
+						height={500}
+						class="rounded-lg object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+					/>
+				</button>
+			))
+		}
+	</div>
+
+	<!-- Lightbox overlay -->
+	<div
+		class="lightbox-overlay"
+		data-lightbox-overlay
+		role="dialog"
+		aria-modal="true"
+		aria-label="Image lightbox"
+	>
+		<!-- Close button -->
+		<button
+			type="button"
+			class="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition-colors cursor-pointer"
+			data-lightbox-close
+			aria-label="Close lightbox"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-8 w-8"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M6 18L18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+
+		<!-- Previous button -->
+		<button
+			type="button"
+			class="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors cursor-pointer p-2"
+			data-lightbox-prev
+			aria-label="Previous image"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-10 w-10"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"
+				></path>
+			</svg>
+		</button>
+
+		<!-- Full-size images (one per image, toggled by JS) -->
+		{
+			images.map((image, index) => (
+				<div
+					class="lightbox-slide"
+					data-lightbox-slide={index}
+					data-caption={image.caption || image.alt}
+				>
+					<Image
+						alt={image.alt}
+						src={image.src}
+						width={Math.min(image.src.width, 1920)}
+						class="lightbox-full-image"
+					/>
+				</div>
+			))
+		}
+
+		<!-- Caption -->
+		<p
+			class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 text-sm text-center max-w-xl"
+			data-lightbox-caption
+		>
+		</p>
+
+		<!-- Next button -->
+		<button
+			type="button"
+			class="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white transition-colors cursor-pointer p-2"
+			data-lightbox-next
+			aria-label="Next image"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-10 w-10"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+				></path>
+			</svg>
+		</button>
+
+		<!-- Image counter -->
+		<div
+			class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm"
+			data-lightbox-counter
+		>
+		</div>
+	</div>
+</section>
+
+<style>
+	.lightbox-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		backdrop-filter: blur(4px);
+	}
+
+	.lightbox-overlay.is-open {
+		display: flex;
+	}
+
+	.lightbox-slide {
+		display: none;
+		position: absolute;
+		inset: 0;
+		padding: 3rem;
+		text-align: center;
+	}
+
+	.lightbox-slide.is-active {
+		display: flex;
+	}
+
+	.lightbox-full-image {
+		max-width: 90vw;
+		max-height: 80vh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		border-radius: 0.5rem;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-lightbox-trigger] img {
+			transition: none !important;
+		}
+	}
+</style>
+
+<script>
+	function initLightboxes() {
+		const containers = document.querySelectorAll('.image-grid-container')
+
+		containers.forEach((container) => {
+			const triggers = container.querySelectorAll('[data-lightbox-trigger]')
+			const overlay = container.querySelector(
+				'[data-lightbox-overlay]'
+			) as HTMLElement | null
+			const slides = container.querySelectorAll('[data-lightbox-slide]')
+			const caption = container.querySelector(
+				'[data-lightbox-caption]'
+			) as HTMLElement | null
+			const counter = container.querySelector(
+				'[data-lightbox-counter]'
+			) as HTMLElement | null
+			const closeBtn = container.querySelector('[data-lightbox-close]')
+			const prevBtn = container.querySelector(
+				'[data-lightbox-prev]'
+			) as HTMLElement | null
+			const nextBtn = container.querySelector(
+				'[data-lightbox-next]'
+			) as HTMLElement | null
+
+			if (!overlay || !slides.length || !triggers.length) return
+
+			let currentIndex = 0
+			let previouslyFocused: HTMLElement | null = null
+			const totalImages = slides.length
+
+			function showImage(index: number) {
+				currentIndex = index
+
+				// Hide all slides, show the active one
+				slides.forEach((slide, i) => {
+					slide.classList.toggle('is-active', i === index)
+				})
+
+				const activeSlide = slides[index] as HTMLElement
+				if (caption) caption.textContent = activeSlide.dataset.caption || ''
+				if (counter) counter.textContent = `${index + 1} / ${totalImages}`
+
+				if (prevBtn) prevBtn.style.display = index === 0 ? 'none' : ''
+				if (nextBtn)
+					nextBtn.style.display = index === totalImages - 1 ? 'none' : ''
+			}
+
+			function openLightbox(index: number) {
+				previouslyFocused = document.activeElement as HTMLElement
+				showImage(index)
+				overlay!.classList.add('is-open')
+				document.body.style.overflow = 'hidden'
+				;(closeBtn as HTMLElement)?.focus()
+			}
+
+			function closeLightbox() {
+				overlay!.classList.remove('is-open')
+				document.body.style.overflow = ''
+				previouslyFocused?.focus()
+			}
+
+			triggers.forEach((trigger) => {
+				trigger.addEventListener('click', () => {
+					const index = parseInt(
+						(trigger as HTMLElement).dataset.index || '0',
+						10
+					)
+					openLightbox(index)
+				})
+			})
+
+			closeBtn?.addEventListener('click', closeLightbox)
+
+			overlay.addEventListener('click', (e) => {
+				const target = e.target as HTMLElement
+				// Close if clicking the overlay backdrop or a slide container (not the image itself)
+				if (target === overlay || target.hasAttribute('data-lightbox-slide')) {
+					closeLightbox()
+				}
+			})
+
+			prevBtn?.addEventListener('click', (e) => {
+				e.stopPropagation()
+				if (currentIndex > 0) showImage(currentIndex - 1)
+			})
+
+			nextBtn?.addEventListener('click', (e) => {
+				e.stopPropagation()
+				if (currentIndex < totalImages - 1) showImage(currentIndex + 1)
+			})
+
+			function trapFocus(e: KeyboardEvent) {
+				const focusableElements = overlay!.querySelectorAll(
+					'button:not([style*="display: none"])'
+				)
+				const first = focusableElements[0] as HTMLElement
+				const last = focusableElements[
+					focusableElements.length - 1
+				] as HTMLElement
+
+				if (e.shiftKey && document.activeElement === first) {
+					e.preventDefault()
+					last.focus()
+				} else if (!e.shiftKey && document.activeElement === last) {
+					e.preventDefault()
+					first.focus()
+				}
+			}
+
+			overlay.addEventListener('keydown', (e: Event) => {
+				const ke = e as KeyboardEvent
+				switch (ke.key) {
+					case 'Escape':
+						closeLightbox()
+						break
+					case 'ArrowLeft':
+						if (currentIndex > 0) showImage(currentIndex - 1)
+						break
+					case 'ArrowRight':
+						if (currentIndex < totalImages - 1) showImage(currentIndex + 1)
+						break
+					case 'Tab':
+						trapFocus(ke)
+						break
+				}
+			})
+		})
+	}
+
+	// Module scripts are deferred, so DOM is already ready
+	initLightboxes()
+	// Handle Astro View Transitions if ever added
+	document.addEventListener('astro:page-load', initLightboxes)
+</script>

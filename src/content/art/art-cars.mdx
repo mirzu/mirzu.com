@@ -6,7 +6,23 @@ pubDate: 'Feb 03 2026'
 coverImageCredit: 'Mike Minecki, mirzu.com'
 ---
 
+import ImageGrid from '../../components/ImageGrid.astro'
+import sakanaDay from '../../assets/inlineimages/Sakana-day.jpg'
+import sakanaNight from '../../assets/inlineimages/Sakana-night.jpg'
+import sakanaBook from '../../assets/inlineimages/American-Puppet-Modernism.webp'
+
 I built two art cars. The first was called Sakana, or just the fish car and the most successful from an artistic perspective, and the second was called Jabba's barge and was the most successful from a fun perspective.
+
+{/* Accepts 2, 3, or 4 columns */}
+
+<ImageGrid
+	columns={3}
+	images={[
+		{ src: sakanaDay, alt: 'Sakana during the day' },
+		{ src: sakanaNight, alt: 'Sakana during the night' },
+		{ src: sakanaBook, alt: 'Made the cover of an art textbook' },
+	]}
+/>
 
 ![Sakana during the day](../../assets/inlineimages/Sakana-day.jpg)
 ![Sakana at night](../../assets/inlineimages/Sakana-night.jpg)
