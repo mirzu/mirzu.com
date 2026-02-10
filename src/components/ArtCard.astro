@@ -5,27 +5,18 @@ import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
 
 const { post } = Astro.props
-
-const artImages = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/artimages/**/*.{jpeg,jpg,png,gif}'
-)
-
-const coverImagePath = `/src/assets/artimages/${post.id}/cover.jpg`
 ---
 
 <a
 	href={`${SITE_BASE}/art/${post.id}/`}
 	class="flex flex-col gap-4 pb-8 h-full group transition-colors"
 >
-	{
-		artImages[coverImagePath] && (
-			<Image
-				src={artImages[coverImagePath]()}
-				alt={post.data.title}
-				class="object-cover rounded-xl aspect-video"
-			/>
-		)
-	}
+	<Image
+		src={post.data.coverImage}
+		alt={post.data.title}
+		class="object-cover rounded-xl aspect-video"
+	/>
+
 	<h4
 		class="text-2xl font-semibold group-hover:text-primary dark:group-hover:text-primary-dark group-hover:underline transition-colors"
 	>

@@ -20,6 +20,7 @@ const {
 	pubDate,
 	updatedDate,
 	coverImageCredit,
+	coverImage,
 	headings,
 	slug,
 	remarkPluginFrontmatter,
@@ -28,12 +29,6 @@ const {
 import BaseLayout from './BaseLayout.astro'
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
-
-const artImages = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/artimages/**/*.{jpeg,jpg,png,gif}'
-)
-
-const coverImagePath = `/src/assets/artimages/${slug}/cover.jpg`
 
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 	.utc()
@@ -89,20 +84,12 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 							</span>
 						</div>
 
+						<Image src={coverImage} alt={title} class="rounded-lg" />
 						{
-							artImages[coverImagePath] && (
-								<>
-									<Image
-										src={artImages[coverImagePath]()}
-										alt={title}
-										class="rounded-lg"
-									/>
-									{coverImageCredit && (
-										<p class="mt-2 mb-8 opacity-80 italic text-sm">
-											Image Credit: {coverImageCredit}
-										</p>
-									)}
-								</>
+							coverImageCredit && (
+								<p class="mt-2 mb-8 opacity-80 italic text-sm">
+									Image Credit: {coverImageCredit}
+								</p>
 							)
 						}
 					</div>
