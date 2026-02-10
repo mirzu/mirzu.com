@@ -4,6 +4,7 @@ description: |
   Michal Minecki, a distinguished Agency Delivery Lead with 20 years of proven success in digital transformation and engineering leadership, is now available to help organizations achieve exceptional project outcomes, team performance, and client satisfaction through strategic delivery excellence.
 
 pubDate: 'Sep 12 2025'
+coverImage: '../../assets/blogimages/transformational-agency-delivery-lead/cover.jpg'
 coverImageCredit: 'Zoha Gohar, Unsplash'
 ---
 

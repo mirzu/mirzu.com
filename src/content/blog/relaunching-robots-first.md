@@ -3,6 +3,7 @@ title: 'Relaunching mirzu.com: Robots First'
 description: |
   Relaunching my personal site with a Robots first mindset.
 pubDate: 'Aug 21 2025'
+coverImage: '../../assets/blogimages/relaunching-robots-first/cover.jpg'
 coverImageCredit: 'Y S (santonii), Unsplash'
 ---
 

@@ -3,6 +3,7 @@ title: 'The Three Pillars of Team Building: Excellence, Empowerment, and Empathy
 description: 'There are lots of things that go into building great teams, but at the core are three pillars: Excellence, Empowerment and Empathy.'
 
 pubDate: 'Sep 05 2025'
+coverImage: '../../assets/blogimages/leadership-pillars-excellence-empowerment-empathy/cover.jpg'
 coverImageCredit: 'Evgeni Tcherkasski, Unsplash'
 ---
 

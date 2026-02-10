@@ -1,16 +1,9 @@
 ---
 import { SITE_BASE } from '@/consts'
 import FormattedDate from './FormattedDate.astro'
-import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
 
 const { post } = Astro.props
-
-const blogImages = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/blogimages/**/*.{jpeg,jpg,png,gif}'
-)
-
-const coverImagePath = `/src/assets/blogimages/${post.id}/cover.jpg`
 ---
 
 <a
@@ -18,9 +11,9 @@ const coverImagePath = `/src/assets/blogimages/${post.id}/cover.jpg`
 	class="flex flex-col gap-4 pb-8 h-full group transition-colors"
 >
 	{
-		blogImages[coverImagePath] && (
+		post.data.coverImage && (
 			<Image
-				src={blogImages[coverImagePath]()}
+				src={post.data.coverImage}
 				alt={post.data.title}
 				class="object-cover rounded-xl aspect-video"
 			/>

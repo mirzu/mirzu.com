@@ -3,6 +3,7 @@ title: 'The web is for robots mostly, accomidations need to made for humans.'
 description: |
   Lets face it: the primary audience of anything being published on the web is robots, and humans are soon to be second class citizens.
 pubDate: 'Jan 9 2026'
+coverImage: '../../assets/blogimages/robots-first-web/cover.jpg'
 coverImageCredit: 'Photo by Compare Fibreon Unsplash'
 ---
 

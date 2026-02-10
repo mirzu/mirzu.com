@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '../components/FormattedDate.astro'
-import type { MarkdownHeading, ImageMetadata } from 'astro'
+import type { MarkdownHeading } from 'astro'
 import TableOfContents from '../components/TableOfContents.astro'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -19,6 +19,7 @@ const {
 	description,
 	pubDate,
 	updatedDate,
+	coverImage,
 	coverImageCredit,
 	headings,
 	slug,
@@ -28,12 +29,6 @@ const {
 import BaseLayout from './BaseLayout.astro'
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
-
-const blogImages = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/assets/blogimages/**/*.{jpeg,jpg,png,gif}'
-)
-
-const coverImagePath = `/src/assets/blogimages/${slug}/cover.jpg`
 
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 	.utc()
@@ -90,10 +85,10 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 						</div>
 
 						{
-							blogImages[coverImagePath] && (
+							coverImage && (
 								<>
 									<Image
-										src={blogImages[coverImagePath]()}
+										src={coverImage}
 										alt={title}
 										class="rounded-lg"
 									/>
