@@ -1,5 +1,5 @@
 ---
-title: 'Michal Minecki: Transformational Agency Delivery Leader Brings Two Decades of Digital Innovation Excellence to Organizations Seeking Operational Excellence'
+title: 'Press Release: Michal Minecki: Transformational Agency Delivery Leader Brings Two Decades of Digital Innovation Excellence to Organizations Seeking Operational Excellence'
 description: |
   Michal Minecki, a distinguished Agency Delivery Lead with 20 years of proven success in digital transformation and engineering leadership, is now available to help organizations achieve exceptional project outcomes, team performance, and client satisfaction through strategic delivery excellence.
 

@@ -4,6 +4,8 @@
 
 ## 1. The Smart Way to Price Your Website Project (And Why One Model Is Ideal)
 
+**cover image:** time.jpg
+
 **Published:** December 11, 2024
 
 **One-sentence description:** A comparison of website project pricing models that makes the case for "fixed price with variable scope" as the ideal approach for large, complex web initiatives.
