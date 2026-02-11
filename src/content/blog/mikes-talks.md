@@ -3,8 +3,8 @@ title: 'Selected Talks by Mike Minecki'
 description: |
   Various Talks Mike Minecki has performed.
 pubDate: 'Febuary 7 2026'
-coverImage: '../../assets/blogimages/robots-first-web/cover.jpg'
-coverImageCredit: 'Photo by Compare Fibreon Unsplash'
+coverImage: '../../assets/blogimages/talks.jpg'
+coverImageCredit: 'Photo by Israel Palacio on Unsplash'
 ---
 
 I’ve spoken at conferences throughout my career on topics spanning online publishing, Drupal, leadership, and artificial intelligence. Over the years, I’ve presented at multiple DrupalCons, DrupalCamps, and a range of other industry events.
