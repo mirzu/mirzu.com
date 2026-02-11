@@ -8,6 +8,7 @@ import rehypeFigureTitle from 'rehype-figure-title'
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis'
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs'
 import { remarkModifiedTime } from './src/plugins/remark-modified-time.mjs'
+import { markdownExport } from './src/plugins/markdown-export.mjs'
 
 import cloudflare from '@astrojs/cloudflare';
 
@@ -25,6 +26,7 @@ export default defineConfig({
               forward: ['dataLayer.push'],
           },
       }),
+      markdownExport(),
 	],
 
   vite: {

@@ -27,6 +27,7 @@
 		"@tailwindcss/vite": "^4.1.12",
 		"astro": "^5.16.15",
 		"astro-icon": "^1.1.0",
+		"astro-markdown-export": "^0.2.0",
 		"dayjs": "^1.11.13",
 		"mdast-util-to-string": "^4.0.0",
 		"reading-time": "^1.5.0",

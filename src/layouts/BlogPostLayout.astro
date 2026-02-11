@@ -65,6 +65,7 @@ const jsonLd = {
 ---
 
 <BaseLayout title={title} description={description}>
+	<link slot="head" rel="alternate" type="text/markdown" href={`/blog/${slug}.md`} />
 	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	<main>
 		<article>
