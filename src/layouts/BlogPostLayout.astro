@@ -33,9 +33,39 @@ import { Icon } from 'astro-icon/components'
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 	.utc()
 	.format('D MMM YYYY')
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mirzu.com'
+const postUrl = `${siteUrl}/blog/${slug}/`
+const imageUrl = coverImage ? new URL(coverImage.src, siteUrl).toString() : undefined
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: title,
+	description: description,
+	url: postUrl,
+	datePublished: pubDate.toISOString(),
+	...(updatedDate && { dateModified: updatedDate.toISOString() }),
+	...(imageUrl && { image: imageUrl }),
+	author: {
+		'@type': 'Person',
+		name: 'Mike Minecki',
+		url: `${siteUrl}/about`,
+	},
+	publisher: {
+		'@type': 'Person',
+		name: 'Mike Minecki',
+		url: `${siteUrl}/about`,
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': postUrl,
+	},
+}
 ---
 
 <BaseLayout title={title} description={description}>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	<main>
 		<article>
 			<div

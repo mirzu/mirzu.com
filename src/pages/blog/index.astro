@@ -6,9 +6,41 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 )
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mirzu.com'
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Blog',
+	name: 'Blog',
+	description:
+		"Welcome to my blog! Here you'll find a collection of my thoughts and experiences.",
+	url: `${siteUrl}/blog/`,
+	author: {
+		'@type': 'Person',
+		name: 'Mike Minecki',
+		url: `${siteUrl}/about`,
+	},
+	blogPost: posts.map((post) => ({
+		'@type': 'BlogPosting',
+		headline: post.data.title,
+		description: post.data.description,
+		url: `${siteUrl}/blog/${post.id}/`,
+		datePublished: post.data.pubDate.toISOString(),
+		...(post.data.updatedDate && {
+			dateModified: post.data.updatedDate.toISOString(),
+		}),
+		author: {
+			'@type': 'Person',
+			name: 'Mike Minecki',
+			url: `${siteUrl}/about`,
+		},
+	})),
+}
 ---
 
 <BaseLayout>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	<main class="app-container pt-36">
 		<h1 class="text-6xl pb-8 font-bold">Blog</h1>
 		<p class="md:w-2/3 text-lg leading-[2rem]">
