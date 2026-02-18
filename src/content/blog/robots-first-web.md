@@ -1,5 +1,5 @@
 ---
-title: 'The web is for robots mostly, accomidations need to made for humans.'
+title: 'The robots first web is here, today.'
 description: |
   Lets face it: the primary audience of anything being published on the web is robots, and humans are soon to be second class citizens.
 pubDate: 'Jan 9 2026'
@@ -9,7 +9,7 @@ coverImageCredit: 'Photo by Compare Fibreon Unsplash'
 
 # Robots First Web
 
-Two recent articles highlight what an groundbreaking change there is happening on the web.
+Two recent articles highlight what a groundbreaking change is happening on the web.
 
 https://www.boye-co.com/blog/2025/1/whats-the-impact-of-the-new-robot-first-web
 

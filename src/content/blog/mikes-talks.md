@@ -13,7 +13,7 @@ Featured below is a talk I gave at Yale University during the early days of AI a
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/kHrniHfdakU?si=s_cTzQTy5oqS7khW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Here are some additional selected speaking engagements:
+## Additional selected speaking engagements:
 
 - [Getting Clients What they Need](https://www.youtube.com/watch?v=s2Sw7jcLLWs)
 - [Using Machine Learning to Create Content Faster and Smarter](https://www.youtube.com/watch?v=9gYn7Z50Gt8)
