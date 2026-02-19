@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/mirzu
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.mirzu.com
+  * I am mirzu (https://keybase.io/mirzu) on keybase.
+  * I have a public key with fingerprint 47DA 68D3 7AD1 45D8 E0A4  B14A 90EA 062E F5CF 1E1E
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101edcb97ebb3281954b3a857d4c42d68b2ed4cac95649c304aa6f07543e319d9780a",
+            "fingerprint": "47da68d37ad145d8e0a4b14a90ea062ef5cf1e1e",
+            "host": "keybase.io",
+            "key_id": "90ea062ef5cf1e1e",
+            "kid": "0101edcb97ebb3281954b3a857d4c42d68b2ed4cac95649c304aa6f07543e319d9780a",
+            "uid": "43e8259b7df146a324a38f11b6eace19",
+            "username": "mirzu"
+        },
+        "service": {
+            "hostname": "www.mirzu.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1478878311,
+    "expire_in": 157680000,
+    "prev": "6960f974e907c7ad7e3adefe5d94edb00e5491318dbd38ed59a2f0782ca8d2cf",
+    "seqno": 5,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.58
+Comment: https://keybase.io/crypto
+
+yMIvAnicrVJdSBVBFL72Y2WKlmVgD8WaWim2szu7O3tRlOyHCCIfigjrNrszq5t5
+97r3Xk1FEMXSzMo0S6XMQKIfEImKQKjM9JplD4pFkT0U/TwUkWREEs1e6q3H5mVm
+zvm+b75z5gzGzHVFRVz7kLiuvaJkc8To/TNB157ktwWVnGaRcs5dyRXR8EYPEeoP
+eIpMwrk5HvCAEl1TFappooCAKkFNxEhSCNShQGSkCZQdsa5KMlR1kYcYywavSFCk
+IlCJqiAec+mcYXoLqO2zTW+AyUKFYBkRUcEEQIkgymOoAYhVnmJeFqgh6QaggDJi
+oeV3GMychv00w7RYjF08YXv/wP9n38GwHAsiQVI1hRgAylgUIBaRAYAmU6xToDpA
+P7W9uJgydLFpVwS5qnSOhUpNnTpddcr4ky4rK8sIQzJ0q5gxfbYVsHTrEEsVBgI+
+v9uhBsp9YSzVPH9UPJrpJayLjFFKbb9peTk3YEg9YDqyACoIKUgEIJ2jh32mTT2m
+g5AUGfFsOe/QUiYpqzJvqAqkKq/o7AMUKmJCDSoRFVKi8TyVoApEgIhGRESJpGKB
+NQYJOkZE0A3OqavEa3FuidnEBUzSbxZ4cSBoU65q4F7+PFdElCty/hxnulxRi+L+
+zlxNaMFs7O5Hpza1XN1w/ln2xV9booefjx/E6P2tgbwVcUvqX2Wee73ic9E+12zk
+7ivjk0e1YGxtVmfb88VprRPfH61MOC7D9yWnTyTVxk4/KE8mCXbdtowXSTej3/Vk
+dtx5eGJhZ3nP9PkNSak7aqq/fpJCqz5uXHMhr/v2x9DJDvz15fK0/LOdfcUpE5+a
+6ib2hpZ9+/LmS2td/JWc8cbIIxdyZprqdzVXT/2Mx73m6q03msuuz1ZN5W4PJdZ3
+9Wt2TIPZNyl3DY0NxjWMnJKOLX2anJ1693JL7rG3j3+kdD9ZnzC0abRrhHT0D3f3
+zmweKK1qHxua17yzdW1W6/4D7tEfbZemGr/7x34DwZtIqg==
+=3fFV
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/mirzu
+
+==================================================================
