@@ -9,8 +9,11 @@ import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis'
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs'
 import { remarkModifiedTime } from './src/plugins/remark-modified-time.mjs'
 import { markdownExport } from './src/plugins/markdown-export.mjs'
+import { sitemapLastmodMap } from './src/plugins/sitemap-lastmod.mjs'
 
 import cloudflare from '@astrojs/cloudflare';
+
+const lastmodMap = sitemapLastmodMap('https://mirzu.com')
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +22,16 @@ export default defineConfig({
 
   integrations: [
       mdx(),
-      sitemap(),
+      sitemap({
+          filter: (page) => !page.includes('/index-md'),
+          serialize(item) {
+              const lastmod = lastmodMap.get(item.url)
+              if (lastmod) {
+                  item.lastmod = lastmod
+              }
+              return item
+          },
+      }),
       icon(),
       partytown({
           config: {
