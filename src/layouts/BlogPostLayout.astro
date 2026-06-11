@@ -5,6 +5,7 @@ import type { MarkdownHeading } from 'astro'
 import TableOfContents from '../components/TableOfContents.astro'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { PERSON_SCHEMA, SITE_URL } from '../consts'
 
 dayjs.extend(utc)
 
@@ -34,9 +35,8 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 	.utc()
 	.format('D MMM YYYY')
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mirzu.com'
-const postUrl = `${siteUrl}/blog/${slug}/`
-const imageUrl = coverImage ? new URL(coverImage.src, siteUrl).toString() : undefined
+const postUrl = `${SITE_URL}/blog/${slug}/`
+const imageUrl = coverImage ? new URL(coverImage.src, SITE_URL).toString() : undefined
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -47,16 +47,9 @@ const jsonLd = {
 	datePublished: pubDate.toISOString(),
 	...(updatedDate && { dateModified: updatedDate.toISOString() }),
 	...(imageUrl && { image: imageUrl }),
-	author: {
-		'@type': 'Person',
-		name: 'Mike Minecki',
-		url: `${siteUrl}/about`,
-	},
-	publisher: {
-		'@type': 'Person',
-		name: 'Mike Minecki',
-		url: `${siteUrl}/about`,
-	},
+	author: PERSON_SCHEMA,
+	publisher: PERSON_SCHEMA,
+	isPartOf: { '@id': `${SITE_URL}/blog/` },
 	mainEntityOfPage: {
 		'@type': 'WebPage',
 		'@id': postUrl,
@@ -141,7 +134,7 @@ const jsonLd = {
 					<!-- Suggest edit -->
 					<div class="flex justify-between mt-16 gap-4 flex-wrap italic">
 						<a
-							href={`https://github.com/yashjawale/yashjawale.github.io/edit/main/src/content/blog/${slug}.md`}
+							href={`https://github.com/mirzu/mirzu.com/edit/main/src/content/blog/${slug}.md`}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="hover:underline underline-offset-4 opacity-70 hover:opacity-100"

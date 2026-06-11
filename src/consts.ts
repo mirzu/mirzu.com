@@ -32,6 +32,30 @@ export const SocialLinks = [
 	},
 ]
 
+// Canonical site URL used for JSON-LD structured data
+export const SITE_URL = 'https://mirzu.com'
+
+// Shared schema.org Person, embedded in JSON-LD across the site
+export const PERSON_SCHEMA = {
+	'@type': 'Person',
+	'@id': `${SITE_URL}/#person`,
+	name: 'Michal Minecki',
+	alternateName: 'Mike Minecki',
+	url: `${SITE_URL}/about/`,
+	email: 'contact@mirzu.com',
+	sameAs: SocialLinks.map((link) => link.url),
+}
+
+export const WEBSITE_SCHEMA = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	'@id': `${SITE_URL}/#website`,
+	name: 'mirzu.com',
+	description: SITE_DESCRIPTION,
+	url: `${SITE_URL}/`,
+	publisher: PERSON_SCHEMA,
+}
+
 export const WebsiteLinks = [
 	{
 		name: 'Home',

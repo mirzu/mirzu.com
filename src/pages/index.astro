@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { SITE_BASE, SocialLinks } from '../consts'
+import { SITE_BASE, SocialLinks, WEBSITE_SCHEMA } from '../consts'
 import { Icon } from 'astro-icon/components'
 import BlogCard from '../components/BlogCard.astro'
 import { getCollection } from 'astro:content'
@@ -13,6 +13,7 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout>
+	<script type="application/ld+json" set:html={JSON.stringify(WEBSITE_SCHEMA)} />
 	<main
 		class="app-container flex flex-col md:flex-row gap-12 justify-center py-36 md:py-48 pt-44 md:pt-56 relative"
 	>

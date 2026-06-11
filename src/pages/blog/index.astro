@@ -2,39 +2,33 @@
 import { getCollection } from 'astro:content'
 import BlogCard from '../../components/BlogCard.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import { PERSON_SCHEMA, SITE_URL } from '../../consts'
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 )
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mirzu.com'
-
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Blog',
+	'@id': `${SITE_URL}/blog/`,
 	name: 'Blog',
 	description:
 		"Welcome to my blog! Here you'll find a collection of my thoughts and experiences.",
-	url: `${siteUrl}/blog/`,
-	author: {
-		'@type': 'Person',
-		name: 'Mike Minecki',
-		url: `${siteUrl}/about`,
-	},
+	url: `${SITE_URL}/blog/`,
+	author: PERSON_SCHEMA,
+	publisher: PERSON_SCHEMA,
+	isPartOf: { '@id': `${SITE_URL}/#website` },
 	blogPost: posts.map((post) => ({
 		'@type': 'BlogPosting',
 		headline: post.data.title,
 		description: post.data.description,
-		url: `${siteUrl}/blog/${post.id}/`,
+		url: `${SITE_URL}/blog/${post.id}/`,
 		datePublished: post.data.pubDate.toISOString(),
 		...(post.data.updatedDate && {
 			dateModified: post.data.updatedDate.toISOString(),
 		}),
-		author: {
-			'@type': 'Person',
-			name: 'Mike Minecki',
-			url: `${siteUrl}/about`,
-		},
+		author: { '@id': `${SITE_URL}/#person` },
 	})),
 }
 ---

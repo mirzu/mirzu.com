@@ -1,5 +1,5 @@
 ---
-import { SITE_BASE, GTM_CONTAINER_ID } from '@/consts'
+import { SITE_BASE, SITE_TITLE, GTM_CONTAINER_ID } from '@/consts'
 import '../styles/global.css'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = `${SITE_BASE}/saral-og.jpg` } = Astro.props
+const { title, description, image = `${SITE_BASE}/og-default.png` } = Astro.props
 ---
 
 <!-- Google Tag Manager -->
@@ -42,7 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	sizes="180x180"
 	href={`${SITE_BASE}/apple-touch-icon.png`}
 />
-<meta name="apple-mobile-web-app-title" content="Saral Theme" />
+<meta name="apple-mobile-web-app-title" content="mirzu.com" />
 <link rel="manifest" href={`${SITE_BASE}/site.webmanifest`} />
 
 <!-- Canonical URL -->
@@ -71,6 +71,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link
 	rel="alternate"
 	type="application/rss+xml"
-	title="Saral Theme RSS Feed"
+	title={`${SITE_TITLE} RSS Feed`}
 	href={new URL('rss.xml', Astro.site)}
 />
