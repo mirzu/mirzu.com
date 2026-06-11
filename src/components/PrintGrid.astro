@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
+import { parseArtworkImage } from '../utils/artwork'
+
+// Grid of every print, each linking to its standalone page. Clicks are
+// progressively enhanced into an overlay that loads the same page.
+const prints = (await getCollection('prints')).sort(
+	(a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+)
+
+const items = prints.map((print) => {
+	const { title, medium } = parseArtworkImage(print.data.image.src)
+	return {
+		title,
+		medium,
+		year: print.data.yearCreated,
+		image: print.data.image,
+		href: `/art/printmaking/${print.id}/`,
+	}
+})
+---
+
+<section class="print-grid-container">
+	<div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8 my-8 not-prose">
+		{
+			items.map((item) => (
+				<a href={item.href} data-print-link class="group block">
+					<Image
+						src={item.image}
+						alt={`${item.title} — ${item.medium}`}
+						width={500}
+						height={500}
+						class="rounded-lg object-cover w-full aspect-square transition-transform duration-300 group-hover:scale-[1.02]"
+					/>
+					<h3 class="text-lg font-semibold mt-3 group-hover:text-primary dark:group-hover:text-primary-dark group-hover:underline">
+						{item.title}
+					</h3>
+					<p class="text-sm opacity-70">
+						{item.medium}, {item.year}
+					</p>
+				</a>
+			))
+		}
+	</div>
+
+	<dialog
+		data-print-overlay
+		aria-label="Artwork detail"
+		class="not-prose m-auto w-[min(48rem,92vw)] max-h-[90vh] rounded-xl p-6 sm:p-10 bg-background text-foreground dark:bg-background-dark dark:text-foreground-dark"
+	>
+		<button
+			type="button"
+			data-print-overlay-close
+			aria-label="Close artwork detail"
+			class="absolute top-3 right-4 text-3xl leading-none opacity-60 hover:opacity-100 cursor-pointer"
+		>
+			&times;
+		</button>
+		<div data-print-overlay-content></div>
+	</dialog>
+</section>
+
+<style is:global>
+	[data-print-overlay]::backdrop {
+		background: rgba(0, 0, 0, 0.7);
+		backdrop-filter: blur(4px);
+	}
+</style>
+
+<script>
+	function initPrintOverlays() {
+		document.querySelectorAll('.print-grid-container').forEach((container) => {
+			const dialog = container.querySelector(
+				'[data-print-overlay]'
+			) as HTMLDialogElement | null
+			const content = container.querySelector(
+				'[data-print-overlay-content]'
+			) as HTMLElement | null
+			const closeButton = container.querySelector('[data-print-overlay-close]')
+			if (!dialog || !content) return
+
+			const originalUrl = window.location.href
+			const originalTitle = document.title
+			let pushedState = false
+
+			async function openOverlay(url: string) {
+				try {
+					const response = await fetch(url)
+					if (!response.ok) throw new Error(`HTTP ${response.status}`)
+					const doc = new DOMParser().parseFromString(
+						await response.text(),
+						'text/html'
+					)
+					const detail = doc.querySelector('[data-artwork-detail]')
+					if (!detail) throw new Error('No artwork detail found')
+
+					content!.replaceChildren(
+						...Array.from(detail.children, (child) =>
+							document.importNode(child, true)
+						)
+					)
+					if (!dialog!.open) dialog!.showModal()
+					history.pushState({ printOverlay: true }, '', url)
+					pushedState = true
+					document.title = doc.title
+				} catch {
+					// Fall back to regular navigation
+					window.location.href = url
+				}
+			}
+
+			container.querySelectorAll('[data-print-link]').forEach((link) => {
+				link.addEventListener('click', (event) => {
+					const mouseEvent = event as MouseEvent
+					if (mouseEvent.metaKey || mouseEvent.ctrlKey || mouseEvent.shiftKey)
+						return
+					event.preventDefault()
+					openOverlay((link as HTMLAnchorElement).href)
+				})
+			})
+
+			closeButton?.addEventListener('click', () => dialog.close())
+
+			// Click on the backdrop closes
+			dialog.addEventListener('click', (event) => {
+				if (event.target === dialog) dialog.close()
+			})
+
+			// Close (Esc, close button, backdrop) rewinds the URL we pushed
+			dialog.addEventListener('close', () => {
+				document.title = originalTitle
+				if (pushedState) {
+					pushedState = false
+					history.replaceState(null, '', originalUrl)
+				}
+			})
+
+			// Browser back closes the overlay
+			window.addEventListener('popstate', () => {
+				if (dialog.open) {
+					pushedState = false
+					dialog.close()
+				}
+			})
+		})
+	}
+
+	initPrintOverlays()
+	document.addEventListener('astro:page-load', initPrintOverlays)
+</script>

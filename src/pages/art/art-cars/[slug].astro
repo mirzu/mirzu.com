@@ -1,0 +1,50 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content'
+import ArtPostLayout from '../../../layouts/ArtPostLayout.astro'
+import { PERSON_SCHEMA, SITE_URL } from '../../../consts'
+
+export async function getStaticPaths() {
+	const cars = await getCollection('artCars')
+	return cars.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}))
+}
+
+type Props = {
+	post: CollectionEntry<'artCars'>
+}
+
+const { post } = Astro.props
+const { Content, headings, remarkPluginFrontmatter } = await render(post)
+
+const pageUrl = `${SITE_URL}/art/art-cars/${post.id}/`
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'VisualArtwork',
+	name: post.data.title,
+	description: post.data.description,
+	url: pageUrl,
+	image: new URL(post.data.coverImage.src, SITE_URL).toString(),
+	artform: 'Sculpture',
+	artMedium: post.data.artMedium,
+	dateCreated: String(post.data.yearCreated),
+	creator: PERSON_SCHEMA,
+	isPartOf: { '@id': `${SITE_URL}/art/art-cars/` },
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+}
+---
+
+<ArtPostLayout
+	{...post.data}
+	headings={headings}
+	slug={`art-cars/${post.id}`}
+	remarkPluginFrontmatter={remarkPluginFrontmatter}
+	jsonLd={jsonLd}
+>
+	<Content />
+</ArtPostLayout>

@@ -1,0 +1,69 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { parseArtworkImage } from '../../../utils/artwork'
+import { PERSON_SCHEMA, SITE_URL } from '../../../consts'
+import { Icon } from 'astro-icon/components'
+
+export async function getStaticPaths() {
+	const prints = await getCollection('prints')
+	return prints.map((print) => ({
+		params: { slug: print.id },
+		props: { print },
+	}))
+}
+
+type Props = {
+	print: CollectionEntry<'prints'>
+}
+
+const { print } = Astro.props
+const { title, medium } = parseArtworkImage(print.data.image.src)
+const pageUrl = `${SITE_URL}/art/printmaking/${print.id}/`
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'VisualArtwork',
+	name: title,
+	description: print.data.description,
+	url: pageUrl,
+	image: new URL(print.data.image.src, SITE_URL).toString(),
+	artform: 'Print',
+	artMedium: medium,
+	artworkSurface: 'Paper',
+	dateCreated: String(print.data.yearCreated),
+	creator: PERSON_SCHEMA,
+	isPartOf: { '@id': `${SITE_URL}/art/printmaking/` },
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+}
+---
+
+<BaseLayout title={`${title} - Printmaking`} description={print.data.description}>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+	<main class="app-container pt-36 pb-24">
+		<div class="max-w-3xl mx-auto">
+			<a
+				href="/art/printmaking/"
+				class="opacity-70 hover:opacity-100 hover:underline underline-offset-4"
+			>
+				<Icon name="mdi:arrow-left" class="inline-block" /> Printmaking
+			</a>
+			<article data-artwork-detail class="pt-6">
+				<h1 class="text-4xl sm:text-5xl leading-snug font-bold">{title}</h1>
+				<p class="uppercase text-sm tracking-tight opacity-70 pt-2 pb-8">
+					{medium}, {print.data.yearCreated}
+				</p>
+				<Image
+					src={print.data.image}
+					alt={`${title} — ${medium}`}
+					class="rounded-lg w-full h-auto"
+				/>
+				<p class="text-lg leading-8 pt-8">{print.data.description}</p>
+			</article>
+		</div>
+	</main>
+</BaseLayout>
