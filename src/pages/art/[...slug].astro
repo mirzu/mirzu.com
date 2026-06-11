@@ -2,6 +2,8 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content'
 import ArtPostLayout from '../../layouts/ArtPostLayout.astro'
 import type { MarkdownHeading } from 'astro'
+import { parseArtworkImage } from '../../utils/artwork'
+import { PERSON_SCHEMA, SITE_URL } from '../../consts'
 
 export async function getStaticPaths() {
 	const posts = await getCollection('art')
@@ -25,6 +27,39 @@ type Props = {
 
 const { post, headings, slug } = Astro.props
 const { Content, remarkPluginFrontmatter } = await render(post)
+
+// Landing pages link out to individual artwork pages; surface those in JSON-LD
+let hasPart: Record<string, unknown>[] | undefined
+if (post.id === 'art-cars') {
+	hasPart = (await getCollection('artCars')).map((car) => ({
+		'@type': 'VisualArtwork',
+		name: car.data.title,
+		url: `${SITE_URL}/art/art-cars/${car.id}/`,
+	}))
+} else if (post.id === 'printmaking') {
+	hasPart = (await getCollection('prints')).map((print) => ({
+		'@type': 'VisualArtwork',
+		name: parseArtworkImage(print.data.image.src).title,
+		url: `${SITE_URL}/art/printmaking/${print.id}/`,
+	}))
+}
+
+const pageUrl = `${SITE_URL}/art/${post.id}/`
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: post.data.title,
+	description: post.data.description,
+	url: pageUrl,
+	image: new URL(post.data.coverImage.src, SITE_URL).toString(),
+	datePublished: post.data.pubDate.toISOString(),
+	author: PERSON_SCHEMA,
+	...(hasPart && { hasPart }),
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+}
 ---
 
 <ArtPostLayout
@@ -32,6 +67,7 @@ const { Content, remarkPluginFrontmatter } = await render(post)
 	headings={headings}
 	slug={slug}
 	remarkPluginFrontmatter={remarkPluginFrontmatter}
+	jsonLd={jsonLd}
 >
 	<Content />
 </ArtPostLayout>

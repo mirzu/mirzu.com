@@ -12,6 +12,7 @@ type Props = CollectionEntry<'art'>['data'] & {
 	headings: MarkdownHeading[]
 	slug: string
 	remarkPluginFrontmatter: Record<string, string>
+	jsonLd?: Record<string, unknown>
 }
 
 const {
@@ -24,6 +25,7 @@ const {
 	headings,
 	slug,
 	remarkPluginFrontmatter,
+	jsonLd,
 } = Astro.props
 
 import BaseLayout from './BaseLayout.astro'
@@ -36,6 +38,7 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 ---
 
 <BaseLayout title={title} description={description}>
+	{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 	<main>
 		<article>
 			<div
