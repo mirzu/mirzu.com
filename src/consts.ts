@@ -33,7 +33,7 @@ export const SocialLinks = [
 ]
 
 // Canonical site URL used for JSON-LD structured data
-export const SITE_URL = 'https://mirzu.com'
+export const SITE_URL = 'https://www.mirzu.com'
 
 // Shared schema.org Person, embedded in JSON-LD across the site
 export const PERSON_SCHEMA = {

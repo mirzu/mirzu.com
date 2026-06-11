@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url'
  */
 export function markdownExport(options = {}) {
 	const {
-		siteUrl = 'https://mirzu.com',
+		siteUrl = 'https://www.mirzu.com',
 		contentDir = 'src/content/blog',
 		outputPath = 'blog',
 	} = options

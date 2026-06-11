@@ -13,11 +13,11 @@ import { sitemapLastmodMap } from './src/plugins/sitemap-lastmod.mjs'
 
 import cloudflare from '@astrojs/cloudflare';
 
-const lastmodMap = sitemapLastmodMap('https://mirzu.com')
+const lastmodMap = sitemapLastmodMap('https://www.mirzu.com')
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mirzu.com',
+  site: 'https://www.mirzu.com',
   base: '',
 
   integrations: [
