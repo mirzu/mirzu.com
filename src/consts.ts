@@ -2,6 +2,7 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = "mirzu.com - Michal Minecki's place on the web"
+export const SITE_AUTHOR = 'Michal Minecki'
 export const SITE_DESCRIPTION =
 	'A simple site for a simple man. Everything you wanted to know, or at least the parts he wants to publish on the internet.'
 

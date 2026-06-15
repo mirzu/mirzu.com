@@ -1,5 +1,5 @@
 ---
-import { SITE_BASE, SITE_TITLE, GTM_CONTAINER_ID } from '@/consts'
+import { SITE_BASE, SITE_TITLE, SITE_AUTHOR, GTM_CONTAINER_ID } from '@/consts'
 import '../styles/global.css'
 
 interface Props {
@@ -52,6 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content={SITE_AUTHOR} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
