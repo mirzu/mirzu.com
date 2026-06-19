@@ -2,8 +2,8 @@
 import ProsePageLayout from '../layouts/ProsePageLayout.astro'
 import { getEntry, render } from 'astro:content'
 
-const page = await getEntry('pages', 'mirzu')
-if (!page) throw new Error('Missing content entry: pages/mirzu')
+const page = await getEntry('pages', 'resume')
+if (!page) throw new Error('Missing content entry: pages/resume')
 const { Content } = await render(page)
 ---
 

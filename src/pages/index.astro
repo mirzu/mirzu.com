@@ -3,13 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE_BASE, SocialLinks, WEBSITE_SCHEMA } from '../consts'
 import { Icon } from 'astro-icon/components'
 import BlogCard from '../components/BlogCard.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import { Image } from 'astro:assets'
 import heroImage from '../assets/hero-illustration.png'
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 4)
+
+const homeEntry = await getEntry('pages', 'home')
+const home = homeEntry?.data.home
+if (!home) throw new Error('Missing homepage content: pages/home')
 ---
 
 <BaseLayout>
@@ -18,19 +22,23 @@ const posts = (await getCollection('blog'))
 		class="app-container flex flex-col md:flex-row gap-12 justify-center py-36 md:py-48 pt-44 md:pt-56 relative"
 	>
 		<div class="flex flex-col gap-12 flex-1">
-			<p class="block text-3xl opacity-70 mt-9 mb-4">Welcome to</p>
-			<h1 class="text-8xl font-bold leading-none">mirzu.com</h1>
+			<p class="block text-3xl opacity-70 mt-9 mb-4">{home.welcome}</p>
+			<h1 class="text-8xl font-bold leading-none">{home.brand}</h1>
 
-			<p class="text-2xl max-w-2xl font-light leading-normal">
-				I'm Michal Minecki, and this is my website.
-			</p>
-			<p class="text-2xl max-w-2xl font-light leading-normal">
-				I help Agencies deliver their best work, and I build content management
-				systems.
-			</p>
-			<p class="text-xl max-w-xl font-light leading-normal">
-				In my spare time I make things and foster dogs.
-			</p>
+			{
+				home.intro.map((line, i) => (
+					<p
+						class:list={[
+							'font-light leading-normal',
+							i === home.intro.length - 1
+								? 'text-xl max-w-xl'
+								: 'text-2xl max-w-2xl',
+						]}
+					>
+						{line}
+					</p>
+				))
+			}
 			<div class="flex flex-wrap gap-8">
 				{
 					SocialLinks.map((link) => (
@@ -76,22 +84,16 @@ const posts = (await getCollection('blog'))
 	<!-- Recent Posts Section -->
 	<section class="app-container py-42 grid lg:grid-cols-2 gap-28 lg:gap-10">
 		<div class="space-y-6">
-			<h2 class="section-title">About Me</h2>
-			<p class="text-lg max-w-xl pb-4">
-				I've spent my whole life in the intersection between engineering and
-				art. For the past 20 years I've been building websites for forward
-				thinking organizations. In my spare time I make things.
-			</p>
+			<h2 class="section-title">{home.aboutTitle}</h2>
+			<p class="text-lg max-w-xl pb-4">{home.aboutBody}</p>
 			<a class="btn-secondary" href={`${SITE_BASE}/about`}
 				>Go to About
 				<Icon size={20} name="mdi:arrow-right" />
 			</a>
 		</div>
 		<div class="space-y-6">
-			<h2 class="section-title">Get in touch</h2>
-			<p class="text-lg max-w-xl">
-				Use the buttons below for my resume & email.
-			</p>
+			<h2 class="section-title">{home.contactTitle}</h2>
+			<p class="text-lg max-w-xl">{home.contactBody}</p>
 			<div class="flex flex-wrap mt-auto space-x-4">
 				<a
 					class="btn-primary"

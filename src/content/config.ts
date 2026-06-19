@@ -57,4 +57,25 @@ const prints = defineCollection({
 		}),
 })
 
-export const collections = { blog, art, artCars, prints }
+const pages = defineCollection({
+	loader: glob({ base: './src/content/pages', pattern: '*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		seoTitle: z.string().optional(),
+		description: z.string().optional(),
+		// Homepage-only structured copy, rendered by src/pages/index.astro
+		home: z
+			.object({
+				welcome: z.string(),
+				brand: z.string(),
+				intro: z.array(z.string()),
+				aboutTitle: z.string(),
+				aboutBody: z.string(),
+				contactTitle: z.string(),
+				contactBody: z.string(),
+			})
+			.optional(),
+	}),
+})
+
+export const collections = { blog, art, artCars, prints, pages }

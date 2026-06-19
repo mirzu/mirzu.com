@@ -47,6 +47,21 @@ export const PERSON_SCHEMA = {
 	sameAs: SocialLinks.map((link) => link.url),
 }
 
+// Structured data for the About page's ProfilePage JSON-LD
+export const ABOUT_DESCRIPTION =
+	'Cross-functional team builder and web developer who helps agencies deliver their best work. Builds content management systems with Drupal, WordPress, and JavaScript frameworks, and makes art on the side: printmaking, woodworking, and Burning Man art cars.'
+
+export const ABOUT_KNOWS_ABOUT = [
+	'Drupal',
+	'WordPress',
+	'JavaScript',
+	'Web development',
+	'Agency delivery',
+	'Team leadership',
+	'Printmaking',
+	'Woodworking',
+]
+
 export const WEBSITE_SCHEMA = {
 	'@context': 'https://schema.org',
 	'@type': 'WebSite',

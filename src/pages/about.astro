@@ -1,6 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import { PERSON_SCHEMA, SITE_URL } from '../consts'
+import ProsePageLayout from '../layouts/ProsePageLayout.astro'
+import { getEntry, render } from 'astro:content'
+import { PERSON_SCHEMA, SITE_URL, ABOUT_DESCRIPTION, ABOUT_KNOWS_ABOUT } from '../consts'
+
+const page = await getEntry('pages', 'about')
+if (!page) throw new Error('Missing content entry: pages/about')
+const { Content } = await render(page)
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -10,63 +15,17 @@ const jsonLd = {
 	name: 'About Michal Minecki',
 	mainEntity: {
 		...PERSON_SCHEMA,
-		description:
-			'Cross-functional team builder and web developer who helps agencies deliver their best work. Builds content management systems with Drupal, WordPress, and JavaScript frameworks, and makes art on the side: printmaking, woodworking, and Burning Man art cars.',
-		knowsAbout: [
-			'Drupal',
-			'WordPress',
-			'JavaScript',
-			'Web development',
-			'Agency delivery',
-			'Team leadership',
-			'Printmaking',
-			'Woodworking',
-		],
+		description: ABOUT_DESCRIPTION,
+		knowsAbout: ABOUT_KNOWS_ABOUT,
 	},
 }
 ---
 
-<BaseLayout
-	title="About Michal Minecki"
-	description="Mike Minecki builds websites, teams, and occasionally large strange objects that roll across deserts."
+<ProsePageLayout
+	heading={page.data.title}
+	title={page.data.seoTitle}
+	description={page.data.description}
 >
-	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-	<main class="app-container pt-36">
-		<h1 class="text-6xl pb-2 font-bold">About Me</h1>
-	</main>
-	<section class="app-container py-12 mb-8">
-		<div
-			class="prose prose-neutral prose-lg md:prose-xl dark:prose-invert prose-img:rounded-xl prose-figure:text-center prose-img:mx-auto"
-		>
-			<p>
-				Hi, I’m Mike. I build websites, teams, and occasionally large strange
-				objects that roll across deserts.
-			</p>
-
-			<p>
-				For most of my career I’ve been a cross-functional team builder, helping
-				designers, engineers, strategists, and stakeholders work together like a
-				real unit. Those teams have delivered platforms for organizations like
-				Yale, Stanford, NBC, and The Economist. My work lives mostly in open
-				source land, especially Drupal, but I’m also fluent in WordPress and a
-				handful of JavaScript frameworks. (This site is built with Astro.)
-			</p>
-			<p>
-				When I’m not making the internet behave, I’m usually making something
-				with my hands. My degree is in Fine Art Printmaking, and I still make
-				prints now and then. I’ve built two Burning Man art cars (one ended up
-				on the cover of an art history textbook, which is still a very funny
-				sentence to say out loud). I’m a woodworker, a furniture builder, and a
-				serial crafter who has absolutely dabbled in crochet and embroidery.
-			</p>
-			<p>
-				This site is my archive: career work, ideas about building strong teams
-				and better web practices, and a catalog of weird and wonderful things
-				I’ve made over the years.
-			</p>
-			<p>
-				What does "mirzu" mean you ask? <a href="/mirzu">Here's your answer.</a>
-			</p>
-		</div>
-	</section>
-</BaseLayout>
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+	<Content />
+</ProsePageLayout>
